@@ -1,0 +1,166 @@
+---
+title: "TEMA 03 - Fiabilidad"
+subtitle: "03. Fiabilidad - Aplicaciones"
+author: "Miguel A. Castellanos López"
+output: 
+  slidy_presentation:
+    footer: Copyright (c), Miguel A. Castellanos
+    theme: cerulean
+    css: ../A.Despensa/slidy.css
+params:
+  nimaIA: null
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align='center', fig.dim=c(6,5))
+library(latex2exp)
+
+if (!exists('nimaIA')) { nimaIA = 50 } else nimaIA = params$nimaIA
+```
+
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+<div class="jumbo">
+  <h2>Aplicaciones del concepto de Fiabilidad</h2>
+</div>
+<!-- Separador -->  </div> <div class="item-flex item-second">
+![]( `r sprintf("../A.Despensa/imagenesIA/%03d.png", sample(001:nimaIA, 1))` ){.myimg .border width="600"}
+<!-- Fin -->  </div></div>
+\
+<hr>
+\
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+- Estimación de la puntuación Verdadera:
+  - Método de las puntuaciones individuales
+  - Método de la regresión
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+- Fiabilidad de una batería
+- Fiabilidad de puntuaciones diferencia
+
+<!-- Fin -->  </div></div>
+
+
+
+
+<!-- ------------------------------------------- -->
+## Estimación de V por el método de las puntuaciones individuales
+
+$$X \Rightarrow N(V, \sigma_{E})$$
+
+Si conozco como se distribuyen las puntuaciones puedo calcular un IC (Estadística II)
+
+\
+\
+
+Procedimiento:
+
+1. Establecemos $\alpha$ (normalmente $\alpha=0.05$ o $\alpha=0.01$)
+1. Encontramos $Z_{\alpha/2}$ (1.96 y 2.58, respectivamente)
+1. Calculamos el error típico de medida
+$$\sigma_{E}=\sigma_{X}\sqrt{1-\rho_{XX'}}$$
+1. Calculamos el IC
+
+$$IC: x_{i}\pm \left | Z_{\alpha/2} \right |\sigma_{E}$$
+
+<hr>
+Es necesario suponer *homocedasticidad* de las varianzas error
+
+Pregunta de examen: ¿Es creíble este supuesto?
+
+<!-- ------------------------------------------- -->
+## Ejercicio
+
+Una persona obtiene una puntuación empírica de 50; El test tiene una media de 40, una varianza de 100 y una fiabilidad de 0.91.
+
+- Calcule el Intervalo de confianza para esa puntuación con una seguridad del 99%
+
+
+<!-- ------------------------------------------- -->
+## Estimación de V por el método de la regresión
+
+- No tiene los requisitos de *homocedasticidad* del método anterior
+- Es preferible al anterior
+
+\
+
+Procedimiento:
+
+1. Realizamos el pronóstico de V'
+
+$$V_{i}'=\overline{X}(1-\rho_{XX'})+\rho_{XX'}x_{i}$$
+
+2. Establecemos $\alpha$ (normalmente $\alpha=0.05$ o $\alpha=0.01$)
+3. Encontramos $Z_{\alpha/2}$ (1.96 y 2.58, respectivamente)
+4. Calculamos el error típico de la regresión
+
+$$\sigma_{V\cdot X}=\sigma_{E}\sqrt{\rho_{XX'}}$$
+
+5. Calculamos el IC
+
+$$IC: V_{i}'\pm \left | Z_{\alpha/2} \right |\sigma_{V\cdot X}$$
+
+<!-- ------------------------------------------- -->
+## Ejercicios
+
+Con los datos del ejercicio anterior calcule el intervalo de confianza para la puntuación verdadera usando el método de la regresión y con un nivel de error del 5%
+
+\
+<hr>
+\
+
+Reflexión: Relación entre seguridad y amplitud del intervalo
+
+<!-- ------------------------------------------- -->
+## Fiabilidad de una batería
+
+
+$$\rho_{TT'}=\frac{a'\sum_{vv}a}{a'\sum_{xx}a}$$
+ 
+<hr>
+
+Siendo $T=10RV + 0.8RN + RA$ y siendo:
+
+$\rho_{VV'}=0.40$
+
+$\rho_{NN'}=0.90$
+
+$\rho_{AA'}=0.90$
+
+¿La fiabilidad será alta o baja?
+
+
+<!-- ------------------------------------------- -->
+## Fiabilidad de puntuaciones diferencia
+
+### Mismo test o paralelos
+
+$$\rho_{DD'}=\frac{\rho_{11'}\sigma_{1}^{2}+\rho_{22'}\sigma_{2}^{2}-2\rho_{12}\sigma_{1}\sigma_{2}}{\sigma_{1}^{2}+\sigma_{2}^{2}-2\rho_{12}\sigma_{1}\sigma_{2}}$$
+<hr>
+Calcular la fiabilidad de las puntuaciones diferencia para un mismo test siendo:
+
+$\rho_{11'}=0.90; \sigma_{1}^{2}=100$
+
+$\rho_{22'}=0.90; \sigma_{2}^{2}=121$
+
+$\rho_{12}=0.60$
+
+<!-- ------------------------------------------- -->
+## Fiabilidad de puntuaciones diferencia (*cont.*)
+
+
+### Distinto Test
+
+$$\rho_{DD'}=\frac{\rho_{11'}+\rho_{22'}-2\rho_{12}}{2(1-\rho_{12})}$$
+<hr>
+
+Calcular la fiabilidad de las puntuaciones diferencia entre Razonamiento Verbal y Razonamiento Numérico siendo:
+
+$\rho_{VN}=0.40$
+
+$\rho_{VV'}=0.80$
+
+$\rho_{NN'}=0.75$
+
+

@@ -1,0 +1,583 @@
+---
+title: "TEMA 02 - Teoría Clásica de los Test (TCT)"
+subtitle: "01. Teoría Clásica de los Test (TCT)"
+author: "Miguel A. Castellanos López"
+output: 
+  slidy_presentation:
+    footer: Copyright (c), Miguel A. Castellanos
+    theme: cerulean
+    css: ../A.Despensa/slidy.css
+params:
+  nimaIA: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align='center', fig.dim=c(6,5))
+# library(latex2exp)
+
+if (!exists('nimaIA')) { nimaIA = 50 } else nimaIA = params$nimaIA
+
+```
+
+
+<!-- Dos columnas --> <div class='cabecera center vcenter'> <div class='item-flex item-first'>
+<div class="jumbo">
+  <h2>Teoría Clásica de los Test</h2>
+</div>
+<!-- Separador -->  </div> <div class="item-flex item-second">
+![]( `r sprintf("../A.Despensa/imagenesIA/%03d.png", sample(001:nimaIA, 1))` ){.myimg .border width="600"}
+<!-- Fin -->  </div></div>
+
+
+
+<!-- ------------------------------------------- -->
+## Introducción
+
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+- Es un modelo de Puntuación Verdadera
+- Busca corregir los errores de medida
+- Formulado en 1904 por ***Spearman***
+- Un tipo importante, la mitad de la estadística la inventó él (pe. el análisis factorial)
+<!-- Separador -->  </div> <div class="item-flex item-second">
+<center> 
+![](RmkdFiles/spearman.jpg){.myimg width="400"}
+</center>
+<!-- Fin -->  </div></div>
+
+\
+\
+
+- Está basada en supuestos:
+
+  - Se establecen unos supuestos generales
+  - De ellos se deducen unas conclusiones relevantes
+  - Si los supuestos son ciertos las deducciones también deben serlo
+  - Pero si no son ciertos las deducciones serán incorrectas
+
+<!-- ------------------------------------------- -->
+## Modelo
+
+
+$$ X = V + E $$
+
+- Donde:
+  - $X$: Puntuación Empírica u observada
+  - $V$: Puntuación Verdadera
+  - $E$: Error
+
+<hr>
+
+- Es un modelo **intuitivo** e **indiscutible**
+
+- Obviamente:
+
+  - $E=X-V$
+  - $V=X-E$
+
+
+<!-- ------------------------------------------- -->
+## Supuestos  
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+<h2>1. $E(E)=0$</h2>
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+El valor esperado de los errores es 0
+<!-- Fin -->
+</div></div>
+<hr>
+
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+<h2>2. $\rho_{EV}=0$</h2>
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+No hay correlación entre los errores y las puntuaciones verdaderas
+<!-- Fin -->
+</div></div>
+<hr>
+
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+<h2>3. $\rho_{E_{1}E_{2}}=0$</h2>
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+No hay correlación entre los errores de dos test distintos (o dos partes diferentes del mismo test)
+<!-- Fin -->
+</div></div>
+<hr>
+
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+<h2>4. $\rho_{E_{1}V_{2}}=0$</h2>
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+No hay correlación entre los errores y las puntuaciones verdaderas de dos test distintos (o dos partes diferentes del mismo test)
+<!-- Fin -->
+</div></div>
+
+\
+\
+
+- A priori parecen completamente razonables (y lo son)
+
+
+
+<!-- ------------------------------------------- -->
+## Resumiendo
+
+
+Spearman establece dos grandes afirmaciones:
+
+\
+
+1. Los errores son aleatorios (y normales):
+
+$$E(E)=0$$
+
+$$\rho_{EV}=0$$
+
+2. Los errores son independientes:
+
+$$\rho_{E_{1}E_{2}}=0$$
+$$\rho_{E_{1}V_{2}}=0$$
+
+<!-- ------------------------------------------- -->
+## ¿Es creíble el modelo?
+
+- A medias
+- Sobre todo problemas con el segundo supuesto $\rho_{EV}=0$
+
+\
+\
+<div class="jumbo">
+<h3>
+La TCT es tan versátil y fácil de usar que compensa las *imperfecciones* del modelo
+</h3>
+</div>
+
+
+
+<!-- ------------------------------------------- -->
+## Deducciones del modelo
+
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$E(x)=E(V)=\mu_{x}=\mu_{v}=V$$
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+Para un grupo: **La media de las empíricas es igual a la media de las verdaderas**
+
+Para un único sujeto: La media empírica es igual a la puntuación verdadera
+<!-- Fin -->
+</div></div>
+<hr>
+
+
+<!-- Dos columnas -->
+<div class='cabecera'> <div class='item-flex item-first'>
+$$\sigma_{EV}=0$$
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+La covarianza de los errores y las verdaderas es 0
+<!-- Fin -->
+</div></div>
+<hr>
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\sigma_{E_{1}E_{2}}=0$$
+
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+La covarianza entre entre los errores de dos test es 0
+<!-- Fin -->
+</div></div>
+<hr>
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\sigma_{XV}=\sigma_{V}^{2}$$
+
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+**La covarianza entre las empíricas y las verdaderas es la varianza verdadera**
+<!-- Fin -->
+</div></div>
+
+\
+\
+
+
+
+<!-- ------------------------------------------- -->
+## Deducciones (*cont.*)
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\sigma_{X}^{2}=\sigma_{V}^{2}+\sigma_{E}^{2}$$
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+**La varianza empírica es igual a la varianza verdadera más la varianza error**
+<!-- Fin -->
+</div></div>
+<hr>
+
+
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$ \rho_{XV}^{2}=\frac{\sigma_{V}^{2}}{\sigma_{X}^{2}}$$
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+**La correlación al cuadrado entre empíricas y verdaderas es la varianza verdadera entre la varianza empírica**
+<!-- Fin -->
+</div></div>
+<hr>
+
+
+
+<!-- Dos columnas -->
+<div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\rho_{XE}^{2}=\frac{\sigma_{E}^{2}}{\sigma_{X}^{2}}$$
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+La correlación al cuadrado entre empíricas y errores es la varianza error entre la varianza empírica
+<!-- Fin -->
+</div></div>
+<hr>
+
+
+
+<!-- Dos columnas -->
+<div class='cabecera  vcenter'> <div class='item-flex item-first'>
+$$\rho_{XV}^{2}+\rho_{XE}^{2}=1$$
+<!-- Separador -->
+</div> <div class="item-flex item-second">
+**La suma de las dos anteriores da 1**
+<!-- Fin -->
+</div></div>
+
+
+
+<!-- ------------------------------------------- -->
+--- 
+<!-- Dos columnas --> <div class='cabecera center vcenter'> <div class='item-flex item-first'>
+<div class="jumbo">
+  <h2>Paralelismo</h2>
+</div>
+<!-- Separador -->  </div> <div class="item-flex item-second">
+![]( `r sprintf("../A.Despensa/imagenesIA/%03d.png", sample(001:nimaIA, 1))` ){.myimg .border width="600"}
+<!-- Fin -->  </div></div>
+
+
+<!-- ------------------------------------------- -->
+## Paralelismo
+
+### Definición
+Dos test son paralelos si cumplen las siguientes condiciones:
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\left.\begin{matrix} X=V+E
+\\ X'=V'+E'
+\end{matrix}\right\} V=V'$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$$\sigma_{E}^{2}=\sigma_{E'}^{2}$$
+<!-- Fin -->  </div></div>
+
+
+### Consecuencias:
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+  $$E(X)=E(X')=\mu_{x}=V$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+Las medias de los dos test son iguales
+<!-- Fin --> </div></div>
+<hr>
+
+  
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\sigma_{X}^{2}=\sigma_{X'}^{2} \ \text{y} \ \sigma_{V}^{2}=\sigma_{V'}^{2}$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+Las varianzas empíricas y verdaderas son iguales
+<!-- Fin --> </div></div>
+<hr>
+
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\sigma_{XX'}=\sigma_{V}^{2}$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+Las covarianzas empíricas son la varianza verdadera
+<!-- Fin --> </div></div>
+<hr>
+
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\rho_{XX'}=\frac{\sigma_{V}^{2}}{\sigma_{X}^{2}}=\rho_{XV}^{2}$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+**La correlación entre empíricas es la fiabilidad**
+<!-- Fin --> </div></div>
+
+
+<!-- ------------------------------------------- -->
+## Paralelismo (*cont.*)
+
+<!-- Dos columnas --> <div class='cabecera  vcenter'> <div class='item-flex item-first'>
+$$\sigma_{E}^{2}=\sigma_{X}^{2}(1-\rho_{XX'})$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+La varianza error se puede calcular como la varianza empírica por 1 menos la fiabilidad
+<!-- Fin --> </div></div>
+<hr>
+
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+$$\sigma_{E}=\sigma_{X}\sqrt{1-\rho_{XX'}}$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+El **Error Tipico de Medida** (la desviación típica error) se puede calcular como la raiz de la anterior
+<!-- Fin --> </div></div>
+<hr>
+
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+$$\rho_{X_{1}X_{2}}=\rho_{X_{1}X_{3}}=\dots= \rho_{X_{p-1}X_{p}}$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+Las correlaciones entre test paralelos son iguales
+<!-- Fin --> </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+$$\rho_{X_{1}Y}=\rho_{X_{2}Y}=\dots=\rho_{X_{p-1}Y}$$
+<!-- Separador --> </div> <div class="item-flex item-second">
+Las correlaciones de test paralelos con un criterio externo (***y***) son iguales
+<!-- Fin --> </div></div>
+
+
+
+<!-- ------------------------------------------- -->
+## Tau-equivalencia ($\tau$)
+
+### Definición
+Dos test son paralelos si cumplen las siguientes condiciones:
+
+<!-- Dos columnas --> <div class='cabecera  vcenter'> <div class='item-flex item-first'>
+$$\left.\begin{matrix} X=V+E
+\\ X'=V'+E'
+\end{matrix}\right\} V=V'$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$$\sigma_{E}^{2}\neq\sigma_{E'}^{2}$$
+<!-- Fin -->  </div></div>
+
+
+### Consecuencias:
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$E(X)=E(X')=\mu_{x}=V$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+Las medias empíricas siguen siendo iguales
+<!-- Fin -->  </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\sigma_{V}^{2}=\sigma_{V'}^{2} \ \text{y} \ \sigma_{X}^{2}\neq\sigma_{X'}^{2}$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+Las varianzas verdaderas siguen siendo iguales **pero las empíricas no**
+<!-- Fin -->  </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\sigma_{XX'}=\sigma_{V}^{2}$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+La covarianza empírica sigue siendo la varianza verdadera
+<!-- Fin -->  </div></div>
+
+<!-- ------------------------------------------- -->
+## Tau-equivalencia (*cont*)
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\rho_{X_{1}X_{2}}\neq\rho_{X_{1}X_{3}}\neq\dots\neq\rho_{X_{p-1}X_{p}}$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+Las correlaciones entre los test Tau-equivalentes no son iguales
+<!-- Fin -->  </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+$$\rho_{X_{1}Y}\neq\rho_{X_{2}Y}\neq\dots\neq\rho_{X_{p-1}Y}$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+Las correlaciones con un criterio externo tampoco son iguales
+<!-- Fin -->  </div></div>
+
+<!-- ------------------------------------------- -->
+## Otras equivalencias
+
+Existen otras equivalencias entre test:
+
+\
+
+- Medidas esencialmente equivalentes o esencialmente tau-equivalentes
+- Medidas linealmente equivalentes en puntuación verdadera o congenéricas
+\
+\
+
+Pero no las vamos a estudiar
+
+
+<!-- ------------------------------------------- -->
+--- 
+
+<!-- Dos columnas --> <div class='cabecera center vcenter'> <div class='item-flex item-first'>
+<div class="jumbo">
+  <h2>Evaluación empírica de las equivalencias</h2>
+</div>
+<!-- Separador -->  </div> <div class="item-flex item-second">
+![]( `r sprintf("../A.Despensa/imagenesIA/%03d.png", sample(001:nimaIA, 1))` ){.myimg .border width="600"}
+<!-- Fin -->  </div></div>
+
+
+## Cómo conocer la equivalencia entre dos formas de un test
+
+- Lo ideal sería comparar que:
+$$V=V'$$
+$$\sigma_{E}^{2}=\sigma_{E'}^{2}$$
+
+- Tenemos que comparar cosas que sean empíricas:
+
+  - Comparar las medias empíricas $\Rightarrow$ t de Student muestras relacionadas
+  - Comparar las varianzas empíricas $\Rightarrow$ $F$ para la igualdad de varianzas
+  
+\
+
+### Opcional: 
+
+  - Si hay más de dos formas: mirar si las correlaciones entre ellos son iguales
+  - Si hay un criterio externo: mirar si las correlaciones con él son iguales
+
+
+<!-- ------------------------------------------- -->
+## Regla de decisión
+
+- La hemos simplificado para la clase
+
+\
+
+<center>
+```{r}
+# https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html
+library(DiagrammeR)
+
+grViz("digraph {
+  graph [layout = dot]
+  
+  node [shape = oval]
+  q1 [label = '¿Son las medias iguales?']
+  q1si [label = 'Sí']
+  q1no [label = 'No']
+  q1noC [label = 'No hay equivalencia*']
+  
+  q2 [label =  '¿Son las varianzas iguales?']
+  q2si [label = 'Sí']
+  q2no [label = 'No']
+  q2siC [label = 'Paralelismo']
+  q2noC [label = 'Tau-equivalencia']
+
+  # edge definitions with the node IDs
+  q1 -> {q1si q1no} q1no -> q1noC
+  q1si -> q2 -> {q2si q2no}
+  q2si -> q2siC
+  q2no -> q2noC
+  }", height=500)
+
+```
+</center>
+
+\
+\
+[*] Podría haber algún tipo de equivalencia aunque las medias fuesen distintas (pe. formas congenéricas)
+
+
+<!-- ------------------------------------------- -->
+## Ejemplo de decisión
+
+
+```{r}
+set.seed(1)
+rx1 = rnorm(100, 50, 10)
+
+datos <- data.frame(
+  x1 = rx1,
+  x2 = rx1 + rnorm(100, 0, 8)
+)
+
+datos$y = 100 + datos$x1 + rnorm(100, 0, 4)
+datos <- round(datos, digits=0)
+
+```
+
+- Partimos de unos datos inventados (simulados con R) para el ejemplo:
+  - x1: es la primera forma del test
+  - x2: es la segunda forma del test (supuestamente paralela)
+  - y: es una variable o criterio externa
+
+\
+
+```{r echo=TRUE}
+head(datos)
+summary(datos)
+```
+
+<!-- ------------------------------------------- -->
+## Diferencia de medias, muestras relacionadas con R
+
+```{r echo=TRUE}
+t.test(datos$x1, datos$x2, paired=TRUE)
+```
+
+<!-- ------------------------------------------- -->
+## Igualdad de varianzas con R
+
+```{r echo=TRUE}
+var.test(datos$x1, datos$x2)
+```
+
+<!-- ------------------------------------------- -->
+## Igualdad de correlaciones con R
+
+```{r echo=TRUE}
+library(psych)
+
+cor(datos$x1, datos$y)
+cor(datos$x2, datos$y)
+
+
+r.test(100, 0.9080691, 0.6781416)
+```
+<hr>
+
+\
+Este test no sería exactamente correcto ya que las correlaciones no son independientes (x1 y x2 están relacionadas), sería más correcto usar la función *paired.r()* del paquete *psych*, pero no lo vamos a ver para simplificar
+
+<!-- ------------------------------------------- -->
+## Conclusión:
+
+- Medias iguales: **Sí**
+- Varianzas Iguales: **No**
+
+\
+\
+<div class="jumbo">
+<h3>
+Son tau-equivalentes
+</h3>
+</div>
+
+\
+\
+
+Además el contraste entre correlaciones confirma que no son paralelos
+
+

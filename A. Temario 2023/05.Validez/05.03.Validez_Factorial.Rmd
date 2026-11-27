@@ -1,0 +1,1326 @@
+---
+title: "TEMA 05 - VALIDEZ"
+subtitle: "03. Técnicas para la estructura interna"
+author: "Miguel A. Castellanos López"
+output: 
+  slidy_presentation:
+    footer: Copyright (c), Miguel A. Castellanos
+    theme: cerulean
+    css: ../A.Despensa/slidy.css
+params:
+  nimaIA: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(global.par = TRUE)
+# library(latex2exp)
+library(psych)
+if (!exists('nimaIA')) { nimaIA = 50 } else nimaIA = params$nimaIA
+```
+
+
+
+<!-- Dos columnas --> <div class='cabecera center vcenter'> <div class='item-flex item-first'>
+<div class="jumbo">
+  <h2>Validez: Estructura interna</h2>
+</div>
+<!-- Separador -->  </div> <div class="item-flex item-second">
+![]( `r sprintf("../A.Despensa/imagenesIA/%03d.png", sample(001:nimaIA, 1))` ){.myimg .border width="600"}
+<!-- Fin -->  </div></div>
+
+---
+
+
+- Son técnicas para comprobar la estructura interna de un test
+
+- Lo que hacen es analizar las relaciones entre los items para ver si es coherente con la teoría
+
+- Hay muchas técnicas:
+
+  - Análisis factorial exploratorio (AFE)
+  - Análisis factorial confirmatorio (AFC)
+  - Las ecuaciones Estructurales (SEM)
+
+
+<!-- ------------------------------------------- -->
+## Antes de empezar
+
+\
+
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+### Principio de parsimonia o simplicidad
+<!-- Separador -->  </div> <div class="item-flex item-second">
+
+<center>  ![](RmkdFiles/220px-William_of_Ockham.png){.myimg height="200"} </center>
+
+<!-- Fin -->  </div></div>
+\
+<hr>
+\
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+### La varianza es información
+<!-- Separador -->  </div> <div class="item-flex item-second">
+
+<center> 
+
+x|y
+:--:|:--:
+1|4
+24|4
+5|4
+16|4
+3|4
+</center>
+
+<!-- Fin -->  </div></div>
+
+<!-- ------------------------------------------- -->
+## Antes de empezar (*cont.*)
+
+\
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+### Los datos pueden ser redundantes
+<!-- Separador -->  </div> <div class="item-flex item-second">
+<center> 
+
+x|y
+:--:|:--:
+1|2
+6|12
+5|10
+9|18
+3|6
+</center>
+
+
+<!-- Fin -->  </div></div>
+
+\
+<hr>
+\
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+### Perder variables no es perder información (o sí)
+<!-- Separador -->  </div> <div class="item-flex item-second">
+
+<center>
+
+x|y
+:--:|:--:
+1|3
+6|15
+5|10
+9|17
+3|6
+</center>
+<!-- Fin -->  </div></div>
+
+
+<!-- ------------------------------------------- -->
+## Antes de empezar (*cont.*)
+
+
+### La técnica más antigua, los componentes principales (ACP)
+
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+
+<center>
+
+```{r, out.width="600px"}
+set.seed(100)
+
+x <- seq(-10,10,.1)
+y <- x+rnorm(length(x),0, 2)
+par(pty="s")
+plot(y~x, type="p", col="blue"
+     , xlab="", ylab=""
+     , xlim = c(-15, 15), ylim = c(-15, 15)
+     ,axes=F
+)
+abline(h=0)
+abline(v=0)
+# axis(1, pos=0)
+# axis(2, pos=0)
+# locator()
+
+text(x=-14.242220, y=1.456432, label="X")
+text(x=1.442427, y=14.480290, label="Y")
+```
+
+|
+:--:|:--:
+Var X:| Alta (50%)
+Var Y:| Alta (50%)
+
+</center>
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+
+<center>
+```{r, out.width="600px"}
+par(pty="s")
+plot(y~x, type="p", col="blue"
+     , xlab="", ylab=""
+     , xlim = c(-15, 15), ylim = c(-15, 15)
+     ,axes=F
+)
+# locator()
+
+# axis(1, pos=0)
+# axis(2, pos=0)
+abline(a=0, b=1, col="red")
+abline(a=+0,b=-1, col="red")
+text(x=14.58662, y=12.0, label="F1")
+text(x=-12.2, y=14.8, label="F2")
+```
+
+
+|
+:--:|:--:
+Var F1:| MUY ALTA (90%)
+Var F2:| MUY BAJA (10%)
+
+
+</center>
+
+<!-- Fin -->  </div></div>
+
+\
+<hr>
+\
+
+### ¿Qué es F1 y F2?
+
+
+
+
+
+<!-- ------------------------------------------- -->
+---
+
+
+<!-- Dos columnas --> <div class='cabecera center vcenter'> <div class='item-flex item-first'>
+<div class="jumbo">
+  <h2>Análisis Factorial</h2>
+</div>
+<!-- Separador -->  </div> <div class="item-flex item-second">
+![]( `r sprintf("../A.Despensa/imagenesIA/%03d.png", sample(001:nimaIA, 1))` ){.myimg .border width="600"}
+<!-- Fin -->  </div></div>
+
+
+<!-- ------------------------------------------- -->
+## AFE
+
+- Técnica multivariada de reducción de dimensinalidad
+- Iniciado por *Spearman*
+- Una de las técnicas más potentes y utilizadas en Psicología
+- Su uso tiene cierta polémica
+
+\
+
+- Nunca falta en las evidencias de validez de un test
+- Existe multitud de software para hacerlo pero R ofrece un enfoque más moderno y potente
+
+\
+
+- Se puede aplicar a cualquier variable 
+- En Psicometría las variables de entrada son las respuestas de lo sujetos a los items
+
+
+
+<!-- ------------------------------------------- -->
+---
+
+- Es como una regresión pero el nivel de análisis no son los sujetos sino las correlaciones entre las variables
+- Se inicia introduciendo las matrices de correlaciones de los items
+
+\
+<hr>
+
+
+```{r include=FALSE}
+library(corrplot)
+library(lavaan)
+
+```
+
+<center>
+
+```{r echo=FALSE}
+
+m <- matrix(runif(100), ncol=10)
+corrplot(m, method='number')
+
+```
+</center>
+
+<!-- ------------------------------------------- -->
+--- 
+
+\
+\
+
+<center>
+```{r echo=FALSE}
+
+set.seed(200)
+
+test_model <- "
+F1 =~ X1 +  X2 +  X3
+F2 =~ 0.8 * X4 + 0.8 * X5 + X6 + 0 * X7
+F3 =~ 0.8 * X8 + 0.8 * X9 + 0.8 * X10
+"
+
+mat <- simulateData(
+  model = test_model, 
+  sample.nobs = 1000)
+
+m <- cor(mat)
+corrplot(m, method='number')
+
+```
+</center>
+
+
+
+<!-- ------------------------------------------- -->
+## modelo AFE
+
+<center>
+```{r}
+# https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html
+library(DiagrammeR)
+
+grViz("digraph {
+  graph [rankdir = LR]
+  
+ 
+  node [shape = oval]
+  F1 [label = 'F1']
+  F2 [label = 'F2']
+  F3 [label =  'F3']
+  
+  node [shape = box]
+  i1 [label = 'it01']
+  i2 [label = 'it02']
+  i3 [label = 'it03']
+  i4 [label = 'it04']
+  i5 [label = 'it05']
+  i6 [label = 'it06']
+  i7 [label = 'it07']
+  i8 [label = 'it08']
+  i9 [label = 'it09']
+  i10 [label = 'it10']
+  
+  node [shape = oval]
+  e1 [label = 'e01']
+  e2 [label = 'e02']
+  e3 [label = 'e03']
+  e4 [label = 'e04']
+  e5 [label = 'e05']
+  e6 [label = 'e06']
+  e7 [label = 'e07']
+  e8 [label = 'e08']
+  e9 [label = 'e09']
+  e10 [label = 'e10']
+  
+   # { rank=same F1, F2, F3 }
+   # { rank=same i1, i2, i3, i4, i5, i6, i7, i8, i9, i10 }
+   # { rank=same e1, e2, e3, e4, e5, e6, e7, e8, e9, e10 }
+
+  # edge [minlen = 2]
+  # edge definitions with the node IDs
+
+  edge [arrowhead = normal]
+  F1 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  F2 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  F3 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  
+  
+  
+  i1 -> e1 [dir=back]
+  i2 -> e2 [dir=back]
+  i3 -> e3 [dir=back]
+  i4 -> e4 [dir=back]
+  i5 -> e5 [dir=back]
+  i6 -> e6 [dir=back]
+  i7 -> e7 [dir=back]
+  i8 -> e8 [dir=back]
+  i9 -> e9 [dir=back]
+  i10 -> e10 [dir=back]
+  
+  }", height=600)
+
+```
+</center>
+
+
+
+<!-- ------------------------------------------- -->
+## Ecuación
+
+$$x_{1}=\alpha_{11}F_{1}+\alpha_{21}F_{2}+\dots+\alpha_{j1}F_{j}+u_{1}$$
+$$x_{2}=\alpha_{12}F_{1}+\alpha_{22}F_{2}+\dots+\alpha_{j2}F_{j}+u_{2}$$
+$$\dots$$
+$$x_{i}=\alpha_{1i}F_{1}+\alpha_{2i}F_{2}+\dots+\alpha_{ji}F_{j}+u_{i}$$
+\
+Donde:
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+$i = 1 \dots n$ (items)
+
+$j = 1 \dots n$ (items)
+
+$x_{i}$: Puntuación (**estandarizada**) para ítem i
+
+$\alpha_{ji}$: influencia del factor j sobre el ítem i
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$F_{j}$: Valor del factor j
+
+$u_{i}$: unicidad o error de j
+
+<!-- Fin -->  </div></div>
+
+
+<hr>
+
+- Hay tantas ecuaciones como items (variables)
+- Cada ecuación contiene tantos términos como factores
+- Todas incluyen el término error (**e**) o unicidad (**u**), son sinónimos
+
+<!-- ------------------------------------------- -->
+--- 
+
+Matricialmente lo podemos escribir como:
+
+\
+
+$$x=AF+U$$
+
+\
+\
+
+$$\begin{pmatrix}x_{1}\\x_{2}\\ \dots\\ x_{i} \end{pmatrix} = \ 
+\begin{pmatrix} \
+\alpha_{11}&\alpha_{21}&\dots&\alpha_{j1}\\ \ \alpha_{12}&\alpha_{22}&\dots&\alpha_{j2}\\ \dots&\dots&\dots&\dots&\\ \ \alpha_{1i}&\alpha_{2i}&\dots&\alpha_{ji}\\ \end{pmatrix} \
+\
+\begin{pmatrix}F_{1}\\ F_{2}\\ \dots\\ F_{j} \end{pmatrix} \ +\begin{pmatrix}u_{1}\\ u_{2}\\ \dots\\ u_{i}\end{pmatrix}$$
+
+
+
+
+<!-- ------------------------------------------- -->
+## Propiedades
+
+\
+
+<!-- Dos columnas --> <div class='cabecera vtop'> <div class='item-flex item-first'>
+### Varianzas de las variables
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$$Var(X_{i})=\alpha_{i1}^{2}+\alpha_{i2}^{2}+\dots+\alpha_{ij}^{2}+u_{i}^{2}=1$$
+
+<!-- Fin -->  </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera vtop'> <div class='item-flex item-first'>
+### Comunalidad
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$$h_{i}^{2}=\alpha_{i1}^{2}+\alpha_{i2}^{2}+\dots+\alpha_{ij}^{2}=\sum_{j}\alpha_{ij}^{2}$$
+<!-- Fin -->  </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera vtop'> <div class='item-flex item-first'>
+### Unicidad
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$$u_{i}^{2}=1-h_{i}^{2}$$
+<!-- Fin -->  </div></div>
+<hr>
+
+
+<!-- Dos columnas --> <div class='cabecera vtop'> <div class='item-flex item-first'>
+### Correlación entre dos variables
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$$\rho_{im}=\sum_{j}\alpha_{ij}\alpha_{mj}$$
+<!-- Fin -->  </div></div>
+
+
+<!-- ------------------------------------------- -->
+--- 
+
+### Si el modelo es cierto, entonces:
+
+\
+
+La matriz de correlaciones (R) entre las variables se puede reproducir como 
+
+$$R=AA'+U$$
+
+R es una matriz cuya diagonal contiene las varianzas de los items (1) y fuera de ella las correlaciones
+
+\
+\
+
+Es más útil estimar R*
+
+
+$$R^{*}=AA'$$
+
+R* tiene en la diagonal las comunalidades de las variables y fuera de ellas las correlaciones
+
+\
+<hr>
+\
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+
+<center>
+### R 
+</center>
+
+
+$$
+\begin{pmatrix}
+ 1& \rho_{11} & \rho_{12}\\ 
+\rho_{11}&  1& \rho_{22}\\ 
+\rho_{21} &  \rho_{22}& 1
+\end{pmatrix}
+$$
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+<center>
+### R* 
+</center>
+
+$$
+\begin{pmatrix}
+ h_{1}^{2}& \rho_{11} & \rho_{12}\\ 
+\rho_{11}&  h_{2}^{2}& \rho_{22}\\ 
+\rho_{21} &  \rho_{22}& h_{3}^{2}
+\end{pmatrix}
+$$
+
+<!-- Fin -->  </div></div>
+
+
+
+<!-- ------------------------------------------- -->
+## Objetivo
+
+
+\
+Las correlaciones dependen de A (los pesos)
+$$R^{*}=AA'$$
+
+### Objetivo
+\
+Encontrar una matriz A que sea óptima en algún sentido, es decir:
+
+- Que reproduzca lo mejor posible R o R*
+- Que maximice las varianzas de los factores
+- Que tengamos el mínimo número de factores
+- etc.
+
+\
+\
+
+Cada método de encontrar A tiene un objetivo diferente y por tanto unas ventajas y unos inconvenientes
+
+
+
+<!-- ------------------------------------------- -->
+## Procedimiento con Software estadístico
+
+\
+\
+
+1. Introducción de datos
+1. Extracción de factores
+1. Elección del número de factores
+1. Rotación de los factores
+1. Indicadores de calidad
+1. Interpretación
+
+
+<!-- <!-- ------------------------------------------- -->
+<!-- ## Antes de empezar dos cosas fundamentales -->
+<!-- - Entender un grafico scree -->
+<!-- - Interpretar una tabla de saturaciones -->
+
+
+<!-- ------------------------------------------- -->
+## 1. Introducción de datos
+
+\
+
+- Se puede calcular desde los datos RAW o ya calculadas las matrices de covarianzas o correlaciones
+
+
+- Normalmente los metes raw y el programa te calcula las correlaciones
+
+\
+\
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+<center>
+### En formato RAW
+
+\
+
+Sj|$It_{1}$|$It_{2}$|$It_{3}$|...|$It_{i}$
+-|-|-|-|-|-|
+1|3|7|5|...|$x_{1i}$
+2|4|5|2|...|$x_{2i}$
+3|1|1|5|...|$x_{3i}$
+...|...|...|...|...|...
+n|3|2|5|...|$x_{ni}$
+
+
+</center>
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+<center>
+### En Correlaciones
+
+\
+
+
+Sj|$It_{1}$|$It_{2}$|$It_{3}$|...|$It_{i}$
+-|-|-|-|-|-|
+$It_{1}$|1.0|0.5|0.2|...|$\rho_{1i}$
+$It_{2}$|0.5|1.0|0.7|...|$\rho_{2i}$
+$It_{3}$|0.2|0.7|1|...|$\rho_{3i}$
+...|...|...|...|...|...
+$It_{i}$|$\rho_{i1}$|$\rho_{i2}$|$\rho_{i2}$|...|$x_{ii}$
+
+
+</center>
+<!-- Fin -->  </div></div>
+
+\
+<hr>
+\
+
+El ejemplo está calculado con la función *fa* del paquete *psych*
+
+
+<!-- ------------------------------------------- -->
+## 2. Extración de los factores
+
+- Elegimos un método para estimar las matrices
+- Se construyen los factores
+
+\
+
+### Los nuevos factores tienen las siguientes características:
+
+- Hay tantos como variables originales (F, A y R tienen la misma dimensión)
+- Son autovectores
+- Tienen un autovalor asociado 
+- Ese autovalor indica cómo de explicativo es el factor
+- Los autovalores están ordenados de mayor a menor
+- Cada factor explica un porcentaje de la varianza de los datos
+  
+\
+\
+
+<center> 
+
+F1|F2|F3|F4
+-|-|-|-
+50%|30%|20%|10%
+</center>
+
+<!-- ------------------------------------------- -->
+## Métodos de estimación
+
+
+Distintos métodos ofrecen distintas soluciones:
+
+\
+
+1. **Ejes principales**: Maximiza la comunalidad de las variables, requiere estimar previamente las comunalidades de las variables. Es uno de los métodos más empleado
+
+1. **Componentes principales**: Reproducen R y no R*, pone las comunalidades a 1
+
+1. **Imagen**: como ejes principales pero usando regresiones para estimar las comunalidades iniciales
+
+1. **Alpha**: Optimizan la consistencia interna (alpha) del test (se busca aquella estructura que de más alfa)
+
+1. **Residuos mínimos**: No necesita inicializar las comunalidades, está basado en  mínimos cuadrados como la regresión y busca reducir las diferencias entre R y la matriz de correlaciones original
+
+1. **Máxima verosimilitud**: No es una Máxima Verosimilitud real como se verá en el tema de la TRI, considera que los datos provienen de una muestra en vez de una población
+
+
+
+<!-- ------------------------------------------- -->
+## Número de factores a retener
+
+
+### Métodos clásicos
+
+- Regla de Kaiser: autovalores mayores de 1
+- Un porcentaje de varianza explicada (60%, 70%)
+- Una discontinuidad en el Scree plot (gráfico de sedimentación)
+
+<center> 
+
+```{r}
+scree(mat)
+```
+</center>
+
+<!-- ------------------------------------------- -->
+## Número de factores a retener
+
+
+### Parallel 
+
+- Es un algoritmo
+- Compara los autovalores extraídos con los datos con muestras aleatorias
+
+<center> 
+
+```{r echo=TRUE}
+fa.parallel(mat)
+```
+</center>
+
+
+<!-- ------------------------------------------- -->
+## Número de factores a retener
+
+
+### MAP de Vellicer
+
+- Es un algoritmo
+- Busca encontrar la estructura factorial más simple
+
+```{r echo=TRUE}
+VSS(mat)
+```
+
+<!-- ------------------------------------------- -->
+## La matriz de saturaciones
+
+Una vez elegido el número de factores calculamos el Análisis Factorial
+
+
+```{r include=FALSE}
+f <- fa(mat, nfactors=3)
+```
+
+
+```{r echo=TRUE}
+fa(mat, nfactors=3, rotate = "oblimin") # oblimin por defecto
+```
+
+
+
+
+<!-- ------------------------------------------- -->
+## 3. Rotación de factores
+
+- Las matrices de saturaciones (o pesos) suelen tener valores en todos los factores
+
+- Los factores se pueden transformar (rotar) para ayudar a la interpretación
+
+- El objetivo es lograr una estructura simple que proporcione la mejor interpetación de los factores
+
+- Son transformaciones de la matriz A según la matriz de transformación T
+\
+\
+
+$$P=AT$$
+\
+<hr>
+\
+
+- Dos tipos de transformaciones:
+  - Ortogonales
+  - Oblicuas
+
+### Inconveniente: Se "desconectan" aún un poco más de la realidad
+
+<!-- ------------------------------------------- -->
+## Rotación Ortogonal
+
+
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+
+```{r}
+df <- data.frame(
+  item=c(1,2,3,4,5,6), 
+  F1= c(0.42, 0.30, 0.71, -0.25, -0.33, -0.69),
+  F2= c(0.43, 0.21, 0.67, 0.18, 0.23, 0.79))
+
+head(df)
+
+```
+
+
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+```{r}
+df2 <- data.frame(
+  item=c(1,2,3,4,5,6), 
+  F1= c(0.40, 0.60, 0.81, -0.05, -0.02, 0.01),
+  F2= c(-0.05, 0.0, -0.05, 0.4, 0.42, 0.8))
+
+
+head(df2)
+
+```
+
+
+<!-- Fin -->  </div></div>
+
+<hr>
+
+
+<center>
+
+```{r}
+par(pty="s")
+
+plot(df$F1, df$F2, type="p", col="blue"
+     , xlab="", ylab=""
+     , xlim = c(-1, 1), ylim = c(-1, 1)
+     ,axes=F
+)
+# locator()
+
+# axis(1, pos=0)
+# axis(2, pos=0)
+
+abline(h=0, col="black")
+abline(v=0, col="black")
+
+abline(a=0, b=1, col="red")
+abline(a=+0,b=-1, col="red")
+
+
+# $x
+# [1]  0.8171401  0.1428012  0.8039177 -0.7827620
+#
+# $y
+# [1] 0.1771792 0.9572968 1.0498531 0.9572968
+
+text(x=0.8171401, y=0.1771792, label="F1")
+text(x=0.1428012, y=0.9572968, label="F2")
+
+
+text(x=0.8039177, y=1.0498531, label="F1*", col="red")
+text(x=-0.7827620, y=0.9572968, label="F2*", col="red")
+
+
+```
+
+</center>
+
+<hr>
+
+- Ortogonales: Independientes (No relacionados)
+- Más usadas:
+
+  - *quartimax*: Simplifica el numero de factores, útil cuando queremos encontrar un factor general
+
+  - *varimax*: Maximiza las varianzas, concentra mas varianza en los primeros factores
+
+<!-- ------------------------------------------- -->
+## Rotación Oblicua
+
+
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+
+```{r}
+df <- data.frame(
+  item=c(1,2,3,4,5,6), 
+  F1= c(0.2, 0.21, 0.21, -0.22, -0.2, -0.21),
+  F2= c(0.43, 0.56, 0.71, 0.8, 0.7, 0.55))
+
+head(df)
+```
+
+
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+```{r}
+
+df2 <- data.frame(
+  item=c(1,2,3,4,5,6), 
+  F1= c(0.3, 0.5, 0.7, -0., -0.01, -0.08),
+  F2= c(0.01, 0.09, 0.04, 0.8, 0.7, 0.55))
+
+head(df2)
+
+```
+
+
+<!-- Fin -->  </div></div>
+
+<hr>
+
+
+<center> 
+
+```{r}
+
+par(pty="s")
+
+plot(df$F1, df$F2, type="p", col="blue"
+     , xlab="", ylab=""
+     , xlim = c(-1, 1), ylim = c(-1, 1)
+     ,axes=F
+)
+
+abline(h=0, col="black")
+abline(v=0, col="black")
+
+abline(a=0, b=3, col="red")
+abline(a=+0,b=-3, col="red")
+
+
+
+# $x
+# [1]  0.7378061  0.1295788  0.4601371 -0.4786484
+# 
+# $y
+# [1] 0.2432909 0.9837414 0.8647405 0.9044074
+
+
+text(x=0.7378061, y=0.2432909, label="F1")
+text(x=0.1295788, y=0.9837414, label="F2")
+
+
+text(x=0.4601371, y=0.8647405, label="F1*", col="red")
+text(x=-0.4786484, y=0.9044074, label="F2*", col="red")
+
+
+
+```
+
+</center>
+
+<hr>
+
+- Oblicuas: No independientes (relacionadas)
+- Más usadas: *Promax* y *Oblimin*
+
+
+
+<!-- ------------------------------------------- -->
+##  Rotación (*cont.*)
+
+
+
+En las soluciones oblicuas es necesario aportar la matriz de correlaciones entre los factores
+
+```{r}
+round(f$Phi,3)
+```
+
+
+<hr>
+\
+
+Se suele hablar de dos matrices distintas, el patrón factorial (P), la estructura factorial (S)
+
+- El patrón factorial (P): indica la relación directa entre una variable y un factor
+- La estructura factorial (S): indica la relación directa entre la entre una variable y un factor más la relación indirecta que llega a través de los otros factores
+
+\
+
+Ambas se relacionan de la siguiente forma:
+
+$$S=P\Phi$$
+
+- Donde $\Phi$ es la matriz de correlaciones
+- En el caso de rotaciones ortogonales ($\Phi$) no existe (o es la matriz identidad) porque los factores son independientes
+
+<hr>
+\
+
+### R te da la estructura factorial (S)
+
+
+<!-- ------------------------------------------- -->
+## 4. Interpretación de los factores
+
+
+### El AFE no se utiliza para reducir la dimensionalidad sino para comprobar la estructura subyacente de los items
+
+\
+\
+
+| Item                                                  |   | F1   | F2   | F3   |
+| ----------------------------------------------------- | - | ---- | ---- | ---- |
+| Tiende a reducir sus amistades a un grupo escogido    |   | **0.91** | 0.08 | 0.29 |
+| Se encuentra cómodo entre mucha gente                 |   | **0.88** | 0.1  | 0.12 |
+| Le molesta tener que hacer nuevas amistades           |   | **0.95** | 0.12 | 0.02 |
+| Responde con dureza cuando alguien le ataca           |   | 0.15 | **0.95** | 0.17 |
+| Cree que las dificultades solo detienen a los débiles |   | 0.11 | **0.78** | 0.03 |
+| Es cierta la frase "Piensa mal y acertarás"           |   | 0.00 | **0.72** | 0.29 |
+| A veces deja para mañana lo que podría hacer hoy      |   | 0.1  | 0.05 | 0.3  |
+
+<!-- ------------------------------------------- -->
+## Interpretación de los factores
+
+La interpretación sustantiva de los factores se lleva a cabo sobre las matrices rotadas. 
+
+- En principio pesos por debajo de 0.3 o no se interpretan o se hace muy cuidadosamente 
+
+- La idea es determinar si el test posee la estructura que se supone que debe tener
+
+\
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+| Rasgo | Item | F1   | F2   | F3   |
+| ----- | ---- | ---- | ---- | ---- |
+| C     | 1    | **0.99** | 0.12 | 0.23 |
+| C     | 2    | **0.94** | 0.12 | 0.00    |
+| C     | 3    | **0.86** | 0.08 | 0.13 |
+| C     | 4    | **0.85** | 0.11 | 0.06 |
+| E     | 5    | 0.10  | **0.88** | 0.08 |
+| E     | 6    | 0.29 | **0.82** | 0.19 |
+| E     | 7    | 0.10  | **0.73** | 0.05 |
+| P     | 8    | 0.21 | 0.21 | **0.84** |
+| P     | 9    | 0.23 | 0.29 | **0.75** |
+| P     | 10   | 0.25 | 0.15 | **0.94** |
+<!-- Separador -->  </div> <div class="item-flex item-second">
+| Rasgo | Item | F1   | F2   | F3   |
+| ----- | ---- | ---- | ---- | ---- |
+| C     | 1    | **0.86** | 0.25 | 0.18 |
+| C     | 2    | **0.80** | 0.13 | 0.28 |
+| C     | 3    | **0.72** | 0.12 | 0.27 |
+| C     | 4    | **0.79** | 0.15 | 0.03 |
+| E     | 5    | 0.25 | **0.86** | 0.09 |
+| E     | 6    | 0.20  | **0.74** | 0.21 |
+| E     | 7    | 0.10  | **0.92** | 0.26 |
+| P     | 8    | **0.98** | 0.16 | 0.04 |
+| P     | 9    | **0.78** | 0.29 | 0.13 |
+| P     | 10   | **0.99** | 0.16 | 0.20  |
+<!-- Fin -->  </div></div>
+
+
+## 5. Indicadores de calidad
+
+- Son indicadores de cómo nuestro modelo factorial ajusta a los datos empíricos
+
+- Los más utilizados:
+
+<hr>
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+### RMSR
+<!-- Separador -->  </div> <div class="item-flex item-second">
+- Root Mean Square of Residuals
+- [0, 1]
+- Mejor más **ALTO**
+<!-- Fin -->  </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+### RMSE
+<!-- Separador -->  </div> <div class="item-flex item-second">
+- Root Mean Square Error of Approximation
+- [0, 1]
+- Mejor más **BAJO**
+- IC al 90%
+<!-- Fin -->  </div></div>
+<hr>
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+### Tucker
+<!-- Separador -->  </div> <div class="item-flex item-second">
+- [0, 1]
+- Mejor más **ALTO**
+<!-- Fin -->  </div></div>
+<hr>
+
+\
+
+Se pueden producir *Heywoods*
+
+
+
+<!-- ------------------------------------------- -->
+## Puntuaciones factoriales
+
+- En los test se suelen agrupar las puntuaciones que reflejan un mismo factor (parceling)
+- Normalmente se suman y ya está, son muy sencillas
+- Por ejemplo:
+  - RN = it1 + it2 +it3
+  - RV = it4 + it5 + it6 + it7
+
+- El AFE permitiría construir puntuaciones para cada rasgo usando los pesos de cada variable en cada factor
+
+- Eso tendría mucho mas sentido porque la influencia de cada variable varía en función del peso
+
+$$F_{ij}= \sum w_{jk}X_{ij}$$
+donde:
+
+$w_{jk}$ es el peso que determina la importancia de ese ítem en ese factor 
+
+- Aunque $w_{jk}$ dependen de las saturaciones existen diferentes procedimientos para calcularlos como las de regresión, Bartlett y Anderson-Rubin
+
+- Una vez calculados se pueden transformar para ayudar en la interpretación o calcular baremos
+
+- No es muy utilizado porque es más engorroso
+
+<!-- ------------------------------------------- -->
+## Puntuación factorial con R
+
+\
+\
+
+```{r echo=TRUE}
+
+p <- fa(mat, nfactors=3, scores="regression")
+head(p$scores)
+
+```
+
+
+
+<!-- ------------------------------------------- -->
+## Requisitos para el cálculo
+
+### Tamaño muestral: 
+- Regla clásica: 5 sujetos por variable y mínimo 100 sujetos
+- Es más complicado, depende de las relaciones entre los items
+
+
+\
+
+### Escala de los items
+
+- Se requiere que las puntuaciones sean cuantitativas y continuas, y la mayoría de las veces los items no lo son
+
+- Incluso cumpliendo lo anterior suele tener problemas
+
+\
+
+Se recomienda:
+
+- Partir de matrices de correlaciones tetracóricas y policóricas
+- Hacer parcel de items que sean muy seguros de que van juntos (sustantivamente indiscutibles) y sobre ellos hacer el AFE
+
+
+<hr>
+
+En el curso vamos a partir de correlaciones
+
+
+<!-- ------------------------------------------- -->
+## Decisiones estadísticas vs decisiones sustantivas
+
+
+### El AFE siempre ha sido polémico
+
+
+- Usado en test multifactoriales
+- Usado para medir la Inteligencia
+- Distintas decisiones llevan a distintos resultados y distintas interpretaciones
+
+\
+<hr>
+
+
+<div class="jumbo">
+  <h4>Las decisiones sobre como realizar una AFE deben estar basada en cuestiones relacionadas con la teoría, no con cuestiones matemáticas o estadísticas
+</h4>
+</div>
+
+<hr>
+
+\
+
+- A la hora de la verdad se mezcla todo un poco
+- La información correlacional debería ser puesta a prueba con información experimental
+
+
+
+<!-- ------------------------------------------- -->
+## Avanzado: Factores de orden superior
+
+- Es posible calcular factores de segundo orden u orden superior
+- 16PF (Cattel), Big Five, etc.
+- Se calculan sobre la matriz de correlaciones de los primeros factores (no se puede llevar a cabo con rotaciones no ortogonales)
+
+
+<center>
+```{r}
+# https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html
+library(DiagrammeR)
+
+grViz("digraph {
+  graph [rankdir = LR]
+  
+  node [shape = oval]
+  G1 [label = 'G1']
+  G2 [label = 'G3']
+ 
+  node [shape = oval]
+  F1 [label = 'F1']
+  F2 [label = 'F2']
+  F3 [label =  'F3']
+  
+  node [shape = box]
+  i1 [label = 'it01']
+  i2 [label = 'it02']
+  i3 [label = 'it03']
+  i4 [label = 'it04']
+  i5 [label = 'it05']
+  i6 [label = 'it06']
+  i7 [label = 'it07']
+  i8 [label = 'it08']
+  i9 [label = 'it09']
+  i10 [label = 'it10']
+  
+  node [shape = oval]
+  e1 [label = 'e01']
+  e2 [label = 'e02']
+  e3 [label = 'e03']
+  e4 [label = 'e04']
+  e5 [label = 'e05']
+  e6 [label = 'e06']
+  e7 [label = 'e07']
+  e8 [label = 'e08']
+  e9 [label = 'e09']
+  e10 [label = 'e10']
+  
+   # { rank=same F1, F2, F3 }
+   # { rank=same i1, i2, i3, i4, i5, i6, i7, i8, i9, i10 }
+   # { rank=same e1, e2, e3, e4, e5, e6, e7, e8, e9, e10 }
+
+  # edge [minlen = 2]
+  # edge definitions with the node IDs
+
+  edge [arrowhead = normal]
+  G1 -> {F1, F2, F3}
+  G2 -> {F1, F2, F3}
+  
+  F1 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  F2 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  F3 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  
+  i1 -> i1
+  i2 -> i2
+  i3 -> i3
+  i4 -> i4
+  i5 -> i5
+  i6 -> i6
+  i7 -> i7
+  i8 -> i8
+  i9 -> i9
+  i10 -> i10
+  
+  
+  i1 -> e1 [dir=back]
+  i2 -> e2 [dir=back]
+  i3 -> e3 [dir=back]
+  i4 -> e4 [dir=back]
+  i5 -> e5 [dir=back]
+  i6 -> e6 [dir=back]
+  i7 -> e7 [dir=back]
+  i8 -> e8 [dir=back]
+  i9 -> e9 [dir=back]
+  i10 -> e10 [dir=back]
+  
+  }", height=600)
+
+```
+</center>
+
+
+<!-- ------------------------------------------- -->
+## Avanzado: Modelos Bifactor
+
+- Muy de moda en los últimos años
+- Es un modelo completo (se estiman las puntuaciones de los sujetos, no las correlaciones entre variables)
+- Se estiman con AFC
+
+<center>
+
+```{r}
+# https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html
+library(DiagrammeR)
+
+grViz("digraph {
+  graph [rankdir = LR]
+  
+ 
+  node [shape = oval]
+  F1 [label = 'F1']
+  F2 [label = 'F2']
+  F3 [label =  'F3']
+  
+  node [shape = box]
+  i1 [label = 'it01']
+  i2 [label = 'it02']
+  i3 [label = 'it03']
+  i4 [label = 'it04']
+  i5 [label = 'it05']
+  i6 [label = 'it06']
+  i7 [label = 'it07']
+  i8 [label = 'it08']
+  i9 [label = 'it09']
+  i10 [label = 'it10']
+  
+  node [shape = oval]
+  G [label = 'G']
+  
+   # { rank=same F1, F2, F3 }
+   # { rank=same i1, i2, i3, i4, i5, i6, i7, i8, i9, i10 }
+   # { rank=same e1, e2, e3, e4, e5, e6, e7, e8, e9, e10 }
+
+  # edge [minlen = 2]
+  # edge definitions with the node IDs
+
+  edge [arrowhead = normal]
+  # G1 -> {F1, F2, F3}
+  # G2 -> {F1, F2, F3}
+  
+  F1 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  F2 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  F3 -> {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10}
+  
+  i1 -> i1
+  i2 -> i2
+  i3 -> i3
+  i4 -> i4
+  i5 -> i5
+  i6 -> i6
+  i7 -> i7
+  i8 -> i8
+  i9 -> i9
+  i10 -> i10
+  
+  
+  {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10} -> G [dir=back]
+  # i1 -> e1 [dir=back]
+  # i2 -> e2 [dir=back]
+  # i3 -> e3 [dir=back]
+  # i4 -> e4 [dir=back]
+  # i5 -> e5 [dir=back]
+  # i6 -> e6 [dir=back]
+  # i7 -> e7 [dir=back]
+  # i8 -> e8 [dir=back]
+  # i9 -> e9 [dir=back]
+  # i10 -> e10 [dir=back]
+  
+  }", height=600)
+
+```
+
+
+
+

@@ -1,0 +1,104 @@
+---
+title: "TEMA 02 - Teoría Clásica de los Test (TCT)"
+subtitle: "02. Ejercicios"
+author: "Miguel A. Castellanos López"
+output: 
+  slidy_presentation:
+    footer: Copyright (c), Miguel A. Castellanos
+    theme: cerulean
+    css: ../A.Despensa/slidy.css
+params:
+  nimaIA: null
+---
+
+
+## Ejercicios de la TCT
+
+1. ¿Cuál será la puntuación verdadera de un sujeto si en un test obtiene un puntuación empírica de 25 y su puntuación errónea es 3?
+
+1. ¿Cuál será la puntuación empírica de un sujeto sabiendo que la puntuación errónea es 10 y que la puntuación verdadera es 5 veces mayor que la errónea?
+
+1. Si la diferencia entre la puntuación empírica y la verdadera de un sujeto es 15, ¿cuánto vale el error?
+
+1. Sabiendo que un sujeto en un test ha obtenido una puntuación empírica de 30 y que la puntuación verdadera es nueve veces la errónea, ¿qué valor tendrán ambas?
+
+1. Si la varianza empírica es 10 y la varianza error es 2, ¿cuánto valdrá la varianza verdadera?
+
+1. Si la desviación típica empírica es 5 y la varianza error es 9, ¿cuánto valdrá la varianza verdadera?
+
+1. Sabiendo que la varianza verdadera es 30 y la varianza error es 6, ¿cuánto valdrá la desviación típica empírica?
+
+1. Sabiendo que la desviación típica empírica es 5 y la desviación típica error es 2, ¿cuánto vale la desviación típica verdadera?
+
+
+
+## Ejercicios de la TCT
+
+9. La proporción de varianza verdadera que hay en la varianza empírica de un test es 0.64 ¿cuánto vale la correlación al cuadrado entre X y V? ¿cuánto vale la correlación entre X y E?
+
+1. La proporción de varianza errónea que hay en la varianza empírica de un test es 0.36 ¿cuánto vale rho cuadrado de XV?
+
+1. La varianza de los errores es 2 y la varianza de las verdaderas es 14. ¿cuál es la fiabilidad del test?
+
+1. Siendo la varianza empírica el doble de las verdaderas ¿cuánto es la proporción del test asociado al error?
+
+1. Sabiendo que la varianza verdadera es 20 y la varianza empírica es 10, ¿cuánto es la fiabilidad del test? (ojo)
+
+1. Siendo la fiabilidad de un test 0.7 y la varianza error 30, ¿cuánto será el error típico de medida del test?
+
+
+## Ejercicios de Paralelismo
+
+1. Siendo X y X' paralelos, y siendo la varianza de las verdaderas de X igual a 20 y la varianza de las empíricas de X' 30, ¿cuánto es rho de XX'?
+
+1. Siendo X y X' paralelos, si la correlación XY (siendo Y una variable externa) es 0.7, ¿cuánto es la correlación XY'?
+
+1. Siendo X y X' paralelos, si la varianza empírica de X' es 10 y la fiabilidad del test es 0.8, ¿cuánto es la varianza error de X'?
+
+## Ejercicios de Paralelismo
+
+Siendo $X_{1}$, $X_{2}$ y $X_{3}$ **paralelos**
+
+\
+
+
+| |$E(X)$|$\sigma_{X}^{2}$|$\sigma_{V}^{2}$|$\sigma_{E}^{2}$|
+|--|--|--|--|--|
+|$X_{1}$|90|30|--|--|
+|$X_{2}$|--|--|--|--|
+|$X_{3}$|--|--|--|10|
+
+\
+\
+
+Además, encontrar:
+
+- $\rho_{X_{1}X_{2}}$
+- $\rho_{X_{1}X_{3}}$
+- $\rho_{X_{2}X_{3}}$
+- La fiabilidad del test
+
+
+
+## Ejercicios de tau-equivalencia
+
+Siendo $X_{1}$, $X_{2}$ y $X_{3}$ **tau-equivalentes**
+
+\
+
+| |$E(X)$|$\sigma_{X}^{2}$|$\sigma_{V}^{2}$|$\sigma_{E}^{2}$|
+|--|--|--|--|--|
+|$X_{1}$|90|50|--|--|
+|$X_{2}$|--|--|--|20|
+|$X_{3}$|--|--|30|--|
+
+\
+\
+
+Además, encontrar:
+
+- $\rho_{X_{1}X_{2}}$
+- $\rho_{X_{1}X_{3}}$
+- $\rho_{X_{2}X_{3}}$
+- La fiabilidad del test
+

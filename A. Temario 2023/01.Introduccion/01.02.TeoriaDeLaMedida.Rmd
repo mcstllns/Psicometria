@@ -1,0 +1,457 @@
+---
+title: "TEMA 01 - INTRODUCCIÓN"
+subtitle: "02. Teoría de la Medida"
+author: "Miguel A. Castellanos López"
+output: 
+  slidy_presentation:
+    footer: Copyright (c), Miguel A. Castellanos
+    theme: cerulean
+    css: ../A.Despensa/slidy.css
+params:
+  nimaIA: null
+---
+
+```{r setup, include=FALSE}
+# knitr::opts_chunk$set(echo = FALSE, fig.align='center', fig.dim=c(6,5))
+# library(latex2exp)
+
+if (!exists('nimaIA')) { nimaIA = 50 } else nimaIA = params$nimaIA
+```
+
+
+<!-- Dos columnas --> <div class='cabecera center vcenter'> <div class='item-flex item-first'>
+<div class="jumbo">
+  <h2>Teoría de la Medida</h2>
+</div>
+<!-- Separador -->  </div> <div class="item-flex item-second">
+![]( `r sprintf("../A.Despensa/imagenesIA/%03d.png", sample(001:nimaIA, 1))` ){.myimg .border width="600"}
+<!-- Fin -->  </div></div>
+
+
+## Teoría de medida
+
+- Tradicionalmente, fuera de la Psicología se ha dudado sobre la validez de las mediciones psicológicas
+
+- Tanto en cuestiones de alto nivel (emociones, pensamientos, etc) como de bajo nivel (sensaciones)
+
+- Incluso dentro de la propia Psicología (pe: *Psicoanálisis*)
+
+<hr>
+
+Parece que los números que obtenemos en psicología no se comportan exactamente como números
+\
+Por ejemplo:
+
+$$1 + 1 = 2$$
+\
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+#### Nivel alto (Emociones)
+<!-- Separador -->  </div> <div class="item-flex item-second">
+¿Te duele el doble si mueren tus dos padres que si muere solo uno?
+<!-- Fin -->  </div></div>
+\
+<hr>
+\
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+#### Nivel medio (Cognición)
+<!-- Separador -->  </div> <div class="item-flex item-second">
+¿Dos personas contestando un test obtendrán el doble de CI?
+<!-- Fin -->  </div></div>
+\
+<hr>
+\
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+#### Nivel bajo (Percepción)
+<!-- Separador -->  </div> <div class="item-flex item-second">
+¿Una bombilla de 80W se ve el doble de luminosa que una de 40W?
+<!-- Fin -->  </div></div>
+
+
+
+<!-- ------------------------------------------- -->
+## Cuatro momentos históricos interesantes:
+
+### [*1901*] Teoría axiomática de Hölders
+- Basada en el idealismo platónico
+- *Medir es asignar números que representan magnitudes*
+- Propiedad de la **concatenación**
+
+\  
+<hr>
+  
+### [*1940*] Asociación Británica para el avance de la ciencia
+- Dirigida por *Campbell*
+- Se rechaza la posibilidad de medir incluso las sensaciones
+
+\
+<hr>
+
+### [*1946*] Artículo de **Stevens**
+ - Publicado en *Science*
+ - Se presentan las escalas de medida
+ - *Medir es asignar números usando ciertas reglas*
+
+  
+<!-- ------------------------------------------- -->
+## Cuatro momentos históricos interesantes (*cont.*)
+
+### [*1979*] Congreso de Moscú para el avance de la ciencia
+- Se evalúa la **Teoría Representacional**
+- Se concluye que *justifica la medición de eventos mentales y se recomienda ser adoptada por todas las ciencias*
+  
+<hr>
+
+\
+\
+<div class="jumbo">
+<h4>
+Medir es conseguir una representación de **algún aspecto de la realidad** mediante sistemas numéricos
+</h4>
+</div>
+\
+\
+<hr>
+
+- Justifica medir cualquier cosa, no solo magnitudes
+- La clave es representar las relaciones entre los objetos
+  
+  
+<!-- ------------------------------------------- -->
+## Teoría Representacional
+
+Supongamos tres pacientes agresivos (A, B y C), un test (F) y los números asignados por ese test (1, 2 y 3)
+
+<!-- Dos columnas --> <div class='cabecera vcenter'> <div class='item-flex item-first'>
+<center>
+```{r echo=FALSE}
+# https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html
+library(DiagrammeR)
+
+grViz("digraph {
+  graph [layout = dot, rankdir = LR]
+  
+  subgraph cluster_0 {
+        label='SRE'
+        style='dotted'
+        
+        A B C
+    }
+
+    subgraph cluster_1 {
+        label='SRN'
+        style='dotted'
+        1
+        2
+        3
+    }
+    A -> F -> 1
+    B -> F -> 2
+    C -> F -> 3
+  }", height=400)
+
+```
+</center>
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+
+- **SRE**: Sistema Relacional Empírico
+
+- **SRN**: Sistema Relacional Numérico
+
+- **F**: Es una regla o aplicación (nuestro test)
+<!-- Fin -->  </div></div>
+
+
+<hr>
+
+Se cumple que:
+
+$$A < B < C$$
+$$1 < 2 < 3$$
+\
+**Homomorfismo**: Se dice que hay un homomorfismo cuando las relaciones que existen en el SRE se mantienen en el SRN
+
+**Medir** es construir una F que sea homomórfica, es decir, que genere números que representen correctamente las relaciones entre los objetos
+
+
+<!-- ------------------------------------------- -->
+## Teoría Representacional (*cont.*)
+
+Fíjate en los números 1, 2 y 3 que nos ha dado F y su relación con los pacientes
+
+\
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+$$1 < 2 < 3$$
+$$A < B < C$$
+
+Son homomórficos si los números quieren representar el "orden" de agresividad
+
+<!-- Separador -->  </div> <div class="item-flex item-second">
+$$1+2=3$$
+$$A + B \neq C$$
+No son homomórficos si los números quieren representar la "cantidad" de agresividad
+<!-- Fin -->  </div></div>
+
+<hr>
+
+\
+Esa es la clave de la Teoría de Stevens:
+
+- ***F*** puede ser homomórfica para algunas relaciones pero no para otras
+
+- Dependiendo de lo que sea capaz de representar F tenemos las famosas cuatro escalas de medida:
+
+  - Razón
+  - Intervalo
+  - Ordinal 
+  - Nominal
+
+
+<!-- ------------------------------------------- -->
+## Teoría Representacional (*cont.*)
+\
+<div class="jumbo">
+<h3>
+¿Por qué no medimos siempre en la escala de razón?
+</h3>
+</div>
+\
+<hr>
+
+Porque no podemos:
+
+- La escala se determina por la interacción entre la naturaleza de la variable y la "calidad" de F
+
+- Por ejemplo:
+
+\
+
+<!-- Dos columnas --> <div class='cabecera vtop'> <div class='item-flex item-first'>
+
+El sexo/género, el lugar de nacimiento, etc son nominales, ya está, no se puede cambiar de escala
+
+**El atributo no posee esas relaciones**
+<!-- Separador -->  </div> <div class="item-flex item-second">
+
+La Inteligencia podría ser de razón pero los test solo llegan a la de intervalo
+
+**El atributo posee esas relaciones pero el instrumento de medida no es capaz de reflejarlas**
+<!-- Fin -->  </div></div>
+
+
+<!-- ------------------------------------------- -->
+## Transformaciones
+
+Cualquier número se puede trasformar
+
+<!-- Dos columnas --> <div class='cabecera'> <div class='item-flex item-first'>
+<center> 
+### Ordinal
+</center>
+
+
+$$A < B < C$$
+$$1 < 2 < 3$$
+
+$$\{1, 2, 3\} \rightarrow \{10, 25, 26\}$$
+$$A < B < C$$
+$$10<25<26$$
+<!-- Separador -->  </div> <div class="item-flex item-second">
+<center> 
+### Intervalo
+</center>
+$$A + B = C$$
+$$1 + 2 = 3$$
+
+$$\{1, 2, 3\} \rightarrow \{10, 25, 26\}$$
+$$A + B = C$$
+$$10+25\neq26$$
+<!-- Fin -->  </div></div>
+
+\
+
+- Dependiendo de la escala hay trasformaciones que se pueden hacer y otras no
+- Si haces una transformación incorrecta acabas perdiendo el homomorfismo
+
+
+<!-- ------------------------------------------- -->
+## Transformaciones (cont.)
+
+
+- Hacer cálculos es hacer transformaciones: sumar, multiplicar, calcular la media y otros estadísticos en realidad son transformaciones de la escala original
+
+\
+\
+
+<div class="jumbo">
+<h3>
+Dependiendo de la escala hay estadísticos que se pueden calcular y otros que no
+</h3>
+</div>
+
+
+<!-- ------------------------------------------- -->
+## Qué ocurre si se pierde el homomorfismo
+
+
+<center>
+```{r echo=FALSE}
+# https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html
+library(DiagrammeR)
+
+grViz("
+
+  digraph {
+  graph [layout = dot, rankdir = LR ]
+  node [shape = box]
+  newrank=true;
+  subgraph cluster0 {
+    # label = 'empírico';
+    style='dotted';
+     # a  -> b [arrowhead = none]
+     a [label='Realidad']
+     b [label='Realidad']
+  }
+  subgraph cluster1 {
+    # label = 'numérico';
+    style='dotted';
+    A [label='Representación Numérica']
+    B [label='Números Transformados']
+    A -> B
+  }
+  a -> A
+  B -> b
+  {rank=same; a; A;}
+  {rank=same; b; B;}
+
+} 
+  
+      ", height=400)
+
+```
+
+\
+\
+
+<div class="jumbo">
+<h3>
+Los números transformados no se pueden conectar con la realidad
+</h3>
+</div>
+
+
+<!-- ------------------------------------------- -->
+
+## Escalas de medida
+
+Escala| Propiedad | Transformación|Estadísticos
+|--|--|--|--|
+Razón     |Distancias absolutas|$y=bx$| Media, varianza y derivados
+Intervalo |Distancias relativas|$y=a+bx$| Media, varianza y derivados
+Ordinal   |Ordenación |Monótonas crecientes| Mediana y derivados$^{2}$
+Nominal   |Igualdad y desigualdad | Cualquiera que respete la igualdad/desigualdad| Moda y derivados$^{1}$
+
+<hr>
+
+$^{1}$ Derivados: técnicas inferenciales basadas en esos estadísticos
+
+$^{2}$ Estrictamente la mediana debería utilizarse en escalas de intervalo
+
+
+- Derivados de la Moda: Muy pocos, $\chi^{2}$ y poco más
+
+- Derivados de la Mediana: Logísticas ordinales y pocas cosas más 
+
+- Derivados de la media y la varianza: **Casi toda la estadística**, las diferencias de medias, anovas, regresiones, etc.
+\
+\
+<div class="jumbo">
+<h3>
+Es interesante conseguir el nivel de intervalo
+</h3>
+</div>
+
+<!-- ------------------------------------------- -->
+## Cómo distinguir la escala
+
+\
+\
+<center>
+```{r echo=FALSE}
+# https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html
+library(DiagrammeR)
+
+grViz("digraph {
+  graph [layout = dot, rankdir = TB ]
+  
+  node [shape = box]
+  q1 [label = '¿Los números son realmente números o son solo etiquetas?']
+ 
+  q12 [label = 'Son etiquetas']
+  q11 [label = 'Son números']
+  
+  q2 [label = '¿Hay orden?']
+  q22 [label = 'No: Nominal']
+  q21 [label = 'Sí: Ordinal']
+
+  q3 [label = '¿Hay cero absoluto?']
+  q32 [label = 'No: Intervalo']
+  q31 [label = 'Sí: Razón']
+  
+  
+  
+  q1 -> {q11 q12}
+  q12 -> q2
+  q2 -> {q21 q22}
+  q11 -> q3  
+  q3 -> {q31 q32}
+  # q11 -> q2 -> {q21 q22}
+  # q12 -> q3 -> {q31 q32}
+  }", height=400)
+
+```
+</center>
+
+<hr>
+\
+La confusión suele producirse entre Ordinal e Intervalo
+\
+\
+Por ejemplo:
+
+- Estatus económico medido como ingresos (€/año): intervalo o razón
+- Estatus económico medido como clase social (alta, media, baja): Ordinal
+
+
+
+<!-- ------------------------------------------- -->
+## Algunas cuestiones
+
+- ¿La escala *Likert* es ordinal o de intervalo?
+- ¿Los items dicotómicos (acierto/fallo), son de razón o nominal?
+- ¿En qué escala están las magnitudes?
+- ¿Se pueden calcular estadísticos de una escala inferior?
+- ¿Se pueden calcular estadísticos de una escala superior?
+
+\
+
+<hr>
+<div class="jumbo">
+<h3>
+Los números no saben lo que son
+</h3>
+</div>
+<p align="right">*Lord y Novick*</p>
+
+<hr>
+
+
+
+- En Psicometría se asume que los test miden en una escala de intervalo 
+- Lo anterior es poco probable
+- Posicionamiento utilitario de la Medición
+
